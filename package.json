@@ -31,5 +31,9 @@
   },
   "engines": {
     "node": ">= 0.2.0"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": false
   }
 }
