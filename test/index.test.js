@@ -293,4 +293,92 @@ module.exports = {
 
     table.should.exist
   },
+
+  "test table with empty head cell": () => {
+    const table = new Table({
+      head: [, "bar"],
+      style: {
+        head: [],
+        border: [],
+      },
+    })
+
+    table.push(["foo", "bar"])
+
+    const expected = [
+      "┌─────┬─────┐",
+      "│     │ bar │",
+      "├─────┼─────┤",
+      "│ foo │ bar │",
+      "└─────┴─────┘",
+    ]
+
+    table.toString().should.eql(expected.join("\n"))
+  },
+
+  "test table with empty body cell": () => {
+    const table = new Table({
+      head: ["foo", "bar"],
+      style: {
+        head: [],
+        border: [],
+      },
+    })
+
+    table.push([, "bar"])
+
+    const expected = [
+      "┌─────┬─────┐",
+      "│ foo │ bar │",
+      "├─────┼─────┤",
+      "│     │ bar │",
+      "└─────┴─────┘",
+    ]
+
+    table.toString().should.eql(expected.join("\n"))
+  },
+
+  "test table with missing head cell": () => {
+    const table = new Table({
+      head: ["foo"],
+      style: {
+        head: [],
+        border: [],
+      },
+    })
+
+    table.push(["foo", "bar"])
+
+    const expected = [
+      "┌─────┬─────┐",
+      "│ foo │     │",
+      "├─────┼─────┤",
+      "│ foo │ bar │",
+      "└─────┴─────┘",
+    ]
+
+    table.toString().should.eql(expected.join("\n"))
+  },
+
+  "test table with missing body cell": () => {
+    const table = new Table({
+      head: ["foo", "bar"],
+      style: {
+        head: [],
+        border: [],
+      },
+    })
+
+    table.push(["foo"])
+
+    const expected = [
+      "┌─────┬─────┐",
+      "│ foo │ bar │",
+      "├─────┼─────┤",
+      "│ foo │     │",
+      "└─────┴─────┘",
+    ]
+
+    table.toString().should.eql(expected.join("\n"))
+  },
 }
