@@ -20,6 +20,7 @@
     "colors": "^1.4.0"
   },
   "devDependencies": {
+    "mocha": "^11.1.0",
     "should": "~0.6"
   },
   "main": "lib",
@@ -27,7 +28,7 @@
     "lib"
   ],
   "scripts": {
-    "test": "make test"
+    "test": "mocha test.js"
   },
   "engines": {
     "node": ">= 0.2.0"
