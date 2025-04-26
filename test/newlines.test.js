@@ -96,4 +96,32 @@ module.exports = {
 
     table.toString().should.eql(expected.join("\n"))
   },
+
+  "test newlines with different representation": function () {
+    var table = new Table({
+      style: { head: [], border: [] },
+    })
+
+    table.push(["Unix & Unix-like", "LF", "1\n2\n3"])
+    table.push(["Windows & DOS", "CRLF", "1\r\n2\r\n3"])
+    table.push(["Classic Mac OS", "CR", "1\r2\r3"])
+
+    var expected = [
+      "┌──────────────────┬──────┬───┐",
+      "│ Unix & Unix-like │ LF   │ 1 │",
+      "│                  │      │ 2 │",
+      "│                  │      │ 3 │",
+      "├──────────────────┼──────┼───┤",
+      "│ Windows & DOS    │ CRLF │ 1 │",
+      "│                  │      │ 2 │",
+      "│                  │      │ 3 │",
+      "├──────────────────┼──────┼───┤",
+      "│ Classic Mac OS   │ CR   │ 1 │",
+      "│                  │      │ 2 │",
+      "│                  │      │ 3 │",
+      "└──────────────────┴──────┴───┘",
+    ]
+
+    table.toString().should.eql(expected.join("\n"))
+  },
 }
