@@ -381,4 +381,47 @@ module.exports = {
 
     table.toString().should.eql(expected.join("\n"))
   },
+
+  "test table with falsy values": () => {
+    const table = new Table({
+      head: ["", false, undefined, null, NaN, 0],
+      style: {
+        head: [],
+        border: [],
+      },
+    })
+
+    table.push(["", false, undefined, null, NaN, 0])
+
+    const expected = [
+      "┌──┬───────┬───────────┬──────┬─────┬───┐",
+      "│  │ false │ undefined │ null │ NaN │ 0 │",
+      "├──┼───────┼───────────┼──────┼─────┼───┤",
+      "│  │ false │ undefined │ null │ NaN │ 0 │",
+      "└──┴───────┴───────────┴──────┴─────┴───┘",
+    ]
+
+    table.toString().should.eql(expected.join("\n"))
+  },
+
+  "test table with function as value": () => {
+    eval("function main () {\n  return 0\n}")
+    const table = new Table({
+      head: [main],
+      style: {
+        head: [],
+        border: [],
+      },
+    })
+
+    const expected = [
+      "┌────────────────────┐",
+      "│ function main () { │",
+      "│   return 0         │",
+      "│ }                  │",
+      "└────────────────────┘",
+    ]
+
+    table.toString().should.eql(expected.join("\n"))
+  },
 }
